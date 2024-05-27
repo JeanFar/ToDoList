@@ -1,16 +1,27 @@
 :root {
-    --primary-color: #5265b8;
+    --primary-color: #394991a6;
     --secondary-color: #000000;
     --background-color: #3b74dd;
     --third-color: #45a049;
 }
 
+ul {
+    all: unset;
+    width: 100%;
+
+}
+
+
+
+
+
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
     background-color: var(--background-color);
-    background-image: url('bg-image.png');
+    background-image: url(/Arquivos/bg-image.png);
     background-size: cover;
     animation: fadein 0.9s ease-in-out;
 }
@@ -24,6 +35,7 @@ body {
 }
 
 .column {
+    background-image: url(/Arquivos/bg-collum.jpg);
     background-color: #4b4242;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -31,6 +43,9 @@ body {
     padding: 10px;
     margin: 0 10px;
     text-align: center;
+    max-width: 90%;
+    display: grid;
+    place-items: start;
 
 }
 
@@ -38,7 +53,12 @@ body {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
-    color: var(--primary-color);
+    color: #050505;
+    display: grid;
+    justify-self: center;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+
+
 }
 
 
@@ -49,9 +69,18 @@ li {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
     padding: 10px;
-    color: white;
+    color: rgb(0, 0, 0);
     transition: background-color 0.3s ease;
     list-style-type: none;
+    width: 100%;
+    max-width: 280px;
+    word-wrap: break-word;
+    text-align: justify;
+
+
+    display: grid;
+    grid-template-columns: 250px 40px;
+
 
     /*Glassmorphism nas caixas de tarefas*/
     background: rgba(255, 255, 255, 0.18);
@@ -60,11 +89,11 @@ li {
     backdrop-filter: blur(3.9px);
     -webkit-backdrop-filter: blur(3.9px);
     border: 1px solid rgba(255, 255, 255, 0.38);
-
 }
 
+
 .row {
-    color: #3b74dd;
+    color: #9097a3;
     width: 10;
     text-align: center;
     align-items: center;
@@ -73,14 +102,15 @@ li {
 }
 
 .row button {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #beee3b;
+    color: #0C041D;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: var(--third-color) 0.3s ease;
     margin-top: 20px;
+
 
 }
 
@@ -92,20 +122,94 @@ li.completed>span {
 
 
 /* propriedade de estilo do arrastar taskItem criado no js */
-.dragging {
+/* .dragging {} */
 
+
+
+
+
+
+/* Botão de deletar */
+.delete-btn {
+    width: 40px;
+    height: 40px;
+    background-image: url(/Arquivos/delete-btn.svg);
+    background-size: contain;
+    grid-column: 2;
+    place-self: center;
+    cursor: pointer;
+
+}
+
+.task-content {
+    word-wrap: break-word;
+    grid-column: 1;
+
+}
+
+#column-header ul {
+    max-width: calc(100%-20px);
+    overflow: hidden;
+    white-space: nowrap;
 
 }
 
 
 /* Formulário que abre quando clica no botão add task */
 #form-task {
-    background-color: red;
+    width: 200px;
+    padding: 8px;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    display: flex;
     align-items: center;
-    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Fundo transparente */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Botão de deletar */
-.delete-btn {
+#form-task input[type="text"] {
+    flex: 1;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-right: 8px;
+    outline: none;
+}
 
+#form-task input[type="text"]:focus {
+    border-color: #5265b8;
+}
+
+#form-task button {
+    padding: 6px 12px;
+    background-color: #5265b8;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#form-task button:hover {
+    background-color: #3b4a75;
+
+
+}
+
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
