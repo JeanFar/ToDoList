@@ -1,6 +1,5 @@
 # Projeto To-Do List 📝
 
-![To-Do List](/Arquivos/Layout.jpg)
 
 ## Sumário
 1. [Recursos Principais](#recursos-principais)
@@ -38,7 +37,7 @@ Atualmente, o projeto inclui os seguintes recursos:
 
 ## Créditos 🙌
 
-Este projeto foi desenvolvido por Jean Farias (https://github.com/JeanFar) e Nicolas Costa (https://github.com/NicolasKinoshi/). Agradecimentos especiais ao professor Luan Oliveira (https://github.com/in100tiva) pela inspiração e suporte.
+Este projeto foi desenvolvido por Nicolas Costa (https://github.com/NicolasKinoshi/) e Jean Farias (https://github.com/JeanFar). Agradecimentos especiais ao professor Luan Oliveira (https://github.com/in100tiva) pela inspiração e suporte.
 
 - Auxilio da construção das funções de Dragging @TomIsLoading (https://github.com/TomIsLoading/drag-and-drop-kanban);
 

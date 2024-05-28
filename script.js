@@ -1,14 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Document loaded'); 
-
     const addTaskButton = document.getElementById('add-task');
-    console.log('Add Task Button:', addTaskButton); 
-
-    
-    loadTasks();
 
     addTaskButton.addEventListener('click', () => {
-        console.log('Add Task button clicked'); 
+        // Verificar se o formulário já existe para evitar duplicação
         if (document.getElementById('form-task')) {
             return;
         }
@@ -18,13 +12,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const inputTask = document.createElement('input');
         inputTask.setAttribute('type', 'text');
-        inputTask.setAttribute('id', 'task-input');
+        inputTask.setAttribute('id', 'task-input'); // Adiciona um ID para facilitar a seleção
 
         const sendTaskButton = document.createElement('button');
         sendTaskButton.textContent = 'Send';
 
+        // Adiciona o evento de clique ao botão "Enviar"
         sendTaskButton.addEventListener('click', sendTask);
 
+        // Adiciona o evento de tecla "Enter" ao input
         inputTask.addEventListener('keypress', (event) => {
             if (event.key === 'Enter') {
                 sendTask();
@@ -36,98 +32,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.body.appendChild(formTask);
 
+        // Focar o input automaticamente
         inputTask.focus();
     });
 
     function sendTask() {
-        console.log('Send Task function called'); 
-
         const inputTask = document.getElementById('task-input');
         const textTask = inputTask.value.trim();
 
         if (textTask !== '') {
-            const newTask = createTaskElement(textTask);
+            const newTask = document.createElement('li');
+            newTask.classList.add('task');
+            newTask.innerHTML = `<span class="task-content">${textTask}</span> <div class='delete-btn'></div>`;
+            newTask.setAttribute('draggable', 'true');
+
+            const deleteBtn = newTask.querySelector('.delete-btn');
+            deleteBtn.addEventListener('click', () => {
+                newTask.remove();
+            });
+
+            newTask.addEventListener('dragstart', () => {
+                newTask.classList.add('dragging');
+            });
+
+            newTask.addEventListener('dragend', () => {
+                newTask.classList.remove('dragging');
+            });
 
             const todoList = document.getElementById('todo-list');
             todoList.appendChild(newTask);
 
-            inputTask.value = "";
+            inputTask.value = ""; // Corrige o valor do input
 
+            // Limpa e remove o formTask após adicionar a tarefa
             const formTask = document.getElementById('form-task');
             if (formTask) {
                 formTask.remove();
             }
 
+            // Atualiza os elementos arrastáveis
             updateDraggables();
-            saveTasks();
         }
     }
 
-    function createTaskElement(textTask) {
-        console.log('Creating task element:', textTask); // Debugging
-
-        const newTask = document.createElement('li');
-        newTask.classList.add('task');
-        newTask.innerHTML = `<span class="task-content">${textTask}</span> <div class='delete-btn'></div>`;
-        newTask.setAttribute('draggable', 'true');
-
-        const deleteBtn = newTask.querySelector('.delete-btn');
-        deleteBtn.addEventListener('click', () => {
-            newTask.remove();
-            saveTasks();
-        });
-
-        newTask.addEventListener('dragstart', () => {
-            newTask.classList.add('dragging');
-        });
-
-        newTask.addEventListener('dragend', () => {
-            newTask.classList.remove('dragging');
-            saveTasks();
-        });
-
-        return newTask;
-    }
-
-    function saveTasks() {
-        console.log('Saving tasks to localStorage'); 
-        const lists = document.querySelectorAll('.column ul');
-        const tasks = {};
-
-        lists.forEach(list => {
-            const taskList = [];
-            list.querySelectorAll('.task .task-content').forEach(task => {
-                taskList.push(task.textContent);
-            });
-            tasks[list.id] = taskList;
-        });
-
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-    }
-
-    function loadTasks() {
-        console.log('Loading tasks from localStorage');
-
-        const tasks = JSON.parse(localStorage.getItem('tasks')) || {};
-        console.log('Tasks loaded:', tasks); 
-
-        for (const listId in tasks) {
-            if (Array.isArray(tasks[listId])) {
-                const todoList = document.getElementById(listId);
-                tasks[listId].forEach(task => {
-                    const newTask = createTaskElement(task);
-                    todoList.appendChild(newTask);
-                });
-            } else {
-                console.error(`Expected an array but got ${typeof tasks[listId]} for listId: ${listId}`);
-            }
-        }
-        updateDraggables();
-    }
-
+    // Função para atualizar os elementos arrastáveis
     function updateDraggables() {
-        console.log('Updating draggables'); 
-
         const draggables = document.querySelectorAll('.task');
 
         draggables.forEach((task) => {
@@ -137,11 +86,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             task.addEventListener('dragend', () => {
                 task.classList.remove('dragging');
-                saveTasks();
             });
         });
     }
 
+    // Drag
     const droppables = document.querySelectorAll('.column');
 
     droppables.forEach((zone) => {
@@ -150,17 +99,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const bottTask = insertAboveTask(zone, e.clientY);
             const curTask = document.querySelector('.dragging');
+            // Condições para dragg entre as tasks
             if (curTask) {
                 if (!bottTask) {
-                    zone.querySelector('ul').appendChild(curTask);
+                    zone.appendChild(curTask);
                 } else {
-                    zone.querySelector('ul').insertBefore(curTask, bottTask);
+                    zone.insertBefore(curTask, bottTask);
                 }
             }
-        });
-
-        zone.addEventListener('dragend', () => {
-            saveTasks();
         });
     });
 
@@ -184,3 +130,4 @@ document.addEventListener('DOMContentLoaded', () => {
         return closestTask;
     }
 });
+

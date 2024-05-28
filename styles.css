@@ -2,7 +2,7 @@
     --primary-color: #394991a6;
     --secondary-color: #000000;
     --background-color: #3b74dd;
-    --third-color: #45a049;
+    --third-color: #265228;
 }
 
 ul {
@@ -21,7 +21,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: var(--background-color);
-    background-image: url(/Arquivos/bg-image.png);
+    background-image: url('./Arquivos/bg-image.png');
     background-size: cover;
     animation: fadein 0.9s ease-in-out;
 }
@@ -35,7 +35,7 @@ body {
 }
 
 .column {
-    background-image: url(/Arquivos/bg-collum.jpg);
+    background-image: url('./Arquivos/bg-collum.jpg');
     background-color: #4b4242;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -53,7 +53,7 @@ body {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
-    color: #050505;
+    color: #98dfd6;
     display: grid;
     justify-self: center;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
@@ -102,8 +102,8 @@ li {
 }
 
 .row button {
-    background-color: #beee3b;
-    color: #0C041D;
+    background-color: #4CAF50;
+    color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -122,7 +122,7 @@ li.completed>span {
 
 
 /* propriedade de estilo do arrastar taskItem criado no js */
-/* .dragging {} */
+.dragging {}
 
 
 
@@ -133,7 +133,7 @@ li.completed>span {
 .delete-btn {
     width: 40px;
     height: 40px;
-    background-image: url(/Arquivos/delete-btn.svg);
+    background-image: url(./Arquivos/delete-btn.svg);
     background-size: contain;
     grid-column: 2;
     place-self: center;
